@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+const React = require('react');
+const ReactDOM = require('react-dom');
 
-import Root from './components/Root';
+const Root = require('./components/Root');
 
 
 window.document.addEventListener('DOMContentLoaded', () => {

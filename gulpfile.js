@@ -1,7 +1,6 @@
 'use strict';
 
 const autoprefixer = require('autoprefixer');
-const babelify = require('babelify');
 const browserSync = require('browser-sync');
 const browserify = require('browserify');
 const fs = require('fs');
@@ -39,9 +38,6 @@ const DATA_URI_IMAGE_PATTERNS = [
 
 const browserSyncInstance = browserSync.create();
 
-const babelRc = fs.readFileSync(path.join(ROOT, '.babelrc'));
-const babelRcData = JSON.parse(babelRc.toString());
-
 
 /*
  * Utils
@@ -61,17 +57,8 @@ const handleErrorAsWarning = function(err) {
  * .js builders
  */
 
-const createBabelTransformer = () => {
-  return babelify.configure({
-    // Configure babel options here
-    // Ref) http://babeljs.io/docs/usage/options/
-    presets: babelRcData.presets,
-  });
-};
-
 const createJsSourcesBundler = (indexFilePath, options) => {
   options = Object.assign({
-    transformer: createBabelTransformer(),
     isLicensified: false,
     isWatchfied: false,
   }, options || {});
@@ -94,10 +81,6 @@ const createJsSourcesBundler = (indexFilePath, options) => {
   });
 
   let bundler = browserify(indexFilePath, browserifyOptions);
-
-  if (options.transformer) {
-    bundler.transform(options.transformer);
-  }
 
   if (options.isLicensified) {
     bundler.plugin(licensify);

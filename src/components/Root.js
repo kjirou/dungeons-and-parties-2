@@ -1,14 +1,14 @@
-import React from 'react';
+const React = require('react');
 
 
-export default class Root extends React.Component {
-
+module.exports = class Root extends React.Component {
   render() {
-    return (
-      <div className="root">
-        <p>Root Component</p>
-        <div className="hagure_metal-image" style={ { width: 300, height: 300 } } />
-      </div>
-    );
+    return React.createElement('div', { className: 'root' }, ...[
+      React.createElement('p', {}, 'Root Component'),
+      React.createElement('div', {
+        className: 'hagure_metal-image',
+        style: { width: 300, height: 300 },
+      }, '')
+    ]);
   }
-}
+};
