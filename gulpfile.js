@@ -33,7 +33,7 @@ const STATIC_FILE_PATTERNS = [
   path.join(SOURCE_ROOT, '**/*.{json,txt}'),
 ];
 const DATA_URI_IMAGE_PATTERNS = [
-  path.join(SOURCE_ROOT, 'images/*.png'),
+  path.join(PUBLIC_DIST_ROOT, 'icons/**/*.png'),
 ];
 
 const browserSyncInstance = browserSync.create();
@@ -205,6 +205,10 @@ gulp.task('watch:static-files', function() {
  * Others
  */
 
+gulp.task('build:divide-icons', gulpShell.task([
+  '$(npm bin)/image-divider'
+]));
+
 gulp.task('build:data-uri-images', function() {
   return gulp.src(DATA_URI_IMAGE_PATTERNS)
     .pipe(gulpImageDataURI({
@@ -223,6 +227,7 @@ gulp.task('serve', function() {
       baseDir: PUBLIC_ROOT,
     },
     notify: false,
+    open: false,
   });
 });
 
@@ -231,9 +236,9 @@ gulp.task('serve', function() {
  * Public APIs
  */
 
-gulp.task('build', [
-  'build:js', 'build:css', 'build:static-files', 'build:data-uri-images'
-]);
+gulp.task('build', function() {
+  runSequence(['build:js', 'build:css', 'build:static-files', 'build:divide-icons'], 'build:data-uri-images');
+});
 gulp.task('develop', function() {
   runSequence('build', ['watch:js', 'watch:css', 'watch:static-files'], 'serve');
 });

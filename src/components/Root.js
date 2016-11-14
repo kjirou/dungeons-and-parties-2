@@ -7,8 +7,8 @@ module.exports = class Root extends React.Component {
   render() {
     return dom('div', { className: 'root' }, ...[
       dom('div', {
-        className: 'hagure_metal-image',
-        style: { width: 300, height: 300 },
+        className: 'fighter-icon',
+        style: { width: 32, height: 32 },
       })
     ]);
   }
