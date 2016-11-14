@@ -1,14 +1,15 @@
 const React = require('react');
 
+const dom = React.createElement;
+
 
 module.exports = class Root extends React.Component {
   render() {
-    return React.createElement('div', { className: 'root' }, ...[
-      React.createElement('p', {}, 'Root Component'),
-      React.createElement('div', {
+    return dom('div', { className: 'root' }, ...[
+      dom('div', {
         className: 'hagure_metal-image',
         style: { width: 300, height: 300 },
-      }, '')
+      })
     ]);
   }
 };
