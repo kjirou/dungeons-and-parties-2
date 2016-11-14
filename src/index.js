@@ -5,6 +5,6 @@ const Root = require('./components/Root');
 
 
 window.document.addEventListener('DOMContentLoaded', () => {
-  const container = window.document.querySelector('.js-app-container');
+  const container = window.document.querySelector('.js-dap-container');
   ReactDOM.render(React.createElement(Root), container);
 });
